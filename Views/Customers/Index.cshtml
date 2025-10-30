@@ -1,0 +1,91 @@
+﻿@model List<Northwind.Models.Customer>
+
+@{
+    ViewBag.Title = "Carga de Clientes";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<h2>Cargar archivo Excel</h2>
+
+@using (Html.BeginForm("Upload", "Customers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="excelFile" accept=".xlsx" required />
+    <button type="submit" class="btn btn-primary">Subir Excel</button>
+}
+
+<script>
+@if (TempData["Error"] != null)
+{
+    <text>
+    Swal.fire('Error', '@TempData["Error"]', 'error');
+    </text>
+}
+@if (TempData["Success"] != null)
+{
+    <text>
+    Swal.fire('Éxito', '@TempData["Success"]', 'success');
+    </text>
+}
+</script>
+
+@if (Model != null && Model.Any())
+{
+    <h3>Vista Previa de Clientes</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>CustomerID</th>
+                <th>CompanyName</th>
+                <th>ContactName</th>
+                <th>ContactTitle</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Region</th>
+                <th>PostalCode</th>
+                <th>Country</th>
+                <th>Phone</th>
+                <th>Fax</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <td>@c.CustomerID</td>
+                    <td>@c.CompanyName</td>
+                    <td>@c.ContactName</td>
+                    <td>@c.ContactTitle</td>
+                    <td>@c.Address</td>
+                    <td>@c.City</td>
+                    <td>@c.Region</td>
+                    <td>@c.PostalCode</td>
+                    <td>@c.Country</td>
+                    <td>@c.Phone</td>
+                    <td>@c.Fax</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @(Html.BeginForm("SaveToDb", "Customers", FormMethod.Post))
+
+    @*{
+        for (int i = 0; i < Model.Count; i++)
+        {
+            @Html.HiddenFor(m => m[i].CustomerID)
+            @Html.HiddenFor(m => m[i].CompanyName)
+            @Html.HiddenFor(m => m[i].ContactName)
+            @Html.HiddenFor(m => m[i].ContactTitle)
+            @Html.HiddenFor(m => m[i].Address)
+            @Html.HiddenFor(m => m[i].City)
+            @Html.HiddenFor(m => m[i].Region)
+            @Html.HiddenFor(m => m[i].PostalCode)
+            @Html.HiddenFor(m => m[i].Country)
+            @Html.HiddenFor(m => m[i].Phone)
+            @Html.HiddenFor(m => m[i].Fax)
+        }*@
+        <button type="submit" class="btn btn-success">Guardar en Base de Datos</button>
+    //}
+}

@@ -1,0 +1,58 @@
+﻿@model List<Northwind.Models.Customer>
+
+@{
+    ViewBag.Title = "Carga de Clientes";
+}
+
+<h2>Subir archivo Excel</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+@using (Html.BeginForm("Upload", "Customers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="excelFile" accept=".xlsx" required />
+    <button type="submit" class="btn btn-primary">Subir Excel</button>
+}
+
+@if (Model != null && Model.Any())
+{
+    <h3>Vista previa</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>CustomerID</th>
+                <th>CompanyName</th>
+                <th>ContactName</th>
+                <th>ContactTitle</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Region</th>
+                <th>PostalCode</th>
+                <th>Country</th>
+                <th>Phone</th>
+                <th>Fax</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>@Model[i].CustomerID</td>
+                    <td>@Model[i].CompanyName</td>
+                    <td>@Model[i].ContactName</td>
+                    <td>@Model[i].ContactTitle</td>
+                    <td>@Model[i].Address</td>
+                    <td>@Model[i].City</td>
+                    <td>@Model[i].Region</td>
+                    <td>@Model[i].PostalCode</td>
+                    <td>@Model[i].Country</td>
+                    <td>@Model[i].Phone</td>
+                    <td>@Model[i].Fax</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

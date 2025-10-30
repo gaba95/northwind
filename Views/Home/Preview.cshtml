@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Northwind.Models.Customer>
+
+@{
+    ViewBag.Title = "Vista previa de clientes";
+}
+
+<h2>Vista previa de clientes</h2>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Customer ID</th>
+            <th>Company Name</th>
+            <th>Contact Name</th>
+            <th>Contact Title</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CustomerID</td>
+                <td>@item.CompanyName</td>
+                <td>@item.ContactName</td>
+                <td>@item.ContactTitle</td>
+                <td>@item.Address</td>
+                <td>@item.City</td>
+                <td>@item.Country</td>
+                <td>@item.Phone</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Index", "Excel")" class="btn btn-primary">Volver</a>

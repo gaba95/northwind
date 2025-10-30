@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Subir Excel";
+}
+
+<h2>Subir Excel</h2>
+
+@using (Html.BeginForm("Upload", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" />
+    <button type="submit">Cargar</button>
+}
+
+@if (TempData["Message"] != null)
+{
+    <div>@TempData["Message"]</div>
+}
